@@ -43,6 +43,7 @@ void update(int node, int start, int end, int i, int val){
 	//No overlap.
 	if(start > end|| i < start || i > end)
 		return;
+	//leave node
 	if(start == end){
 		//Here the value of the array is replaced with the given val.
 		tree[node] = val;
@@ -51,6 +52,25 @@ void update(int node, int start, int end, int i, int val){
 	int mid = (start + end) >> 1;
 	update(2*node, start, mid, i, val);
 	update(2*node + 1, mid + 1, end, i, val);
+	tree[node] = min(tree[2*node], tree[2*node + 1]);
+}
+/*
+Function for updating the value of the given range.
+This is very slow. The optimization to this is lazy propagation.
+*/
+void updateRange(
+	int node, int start, int end, int qstart, int qend, int val){
+	//No overlap
+	if(start > end || start > qend || end < qstart)
+		return;
+	//leaf node
+	if(start == end){
+		tree[node] = val;
+		return;
+	}
+	int mid = (start + end) >> 1;
+	updateRange(2*node, start, mid, qstart, qend, val);
+	updateRange(2*node + 1, mid+1,end, qstart, qend, val);
 	tree[node] = min(tree[2*node], tree[2*node + 1]);
 }
 
