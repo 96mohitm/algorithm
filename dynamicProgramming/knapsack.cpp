@@ -6,6 +6,20 @@ and the rows is the total number of items.
 #include <bits/stdc++.h>
 using namespace std;
 
+int knapsackTopDown(int a[], int w[], int n, int c){
+	if(n==0 || c==0)
+		return 0;
+
+	if(w[n] > c)
+		return knapsackTopDown(a, w, n, c);
+
+	else
+		return max(
+			a[n] + knapsackTopDown(a, w, n-1, c - w[n]),
+			knapsackTopDown(a, w, n-1, c)
+			);
+}
+
 int knapsack(int a[], int wt[], int n, int c){
 	int dp[n+1][c+1];
 	int i,j;
@@ -34,4 +48,15 @@ int main(void){
 		scanf("%d%d",&wt[i],&a[i]);
 	int r = knapsack(a, wt, n, c);
 	printf("%d\n",r );
+	
+	// calling top down func.
+	printf("%d\n",knapsackTopDown(a, wt, n, c) );
 }
+
+/*
+sample Input:
+50 3
+10 60
+20 100
+30 120
+*/
