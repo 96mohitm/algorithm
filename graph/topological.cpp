@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+/*
+topological sorting is only possible if the
+graph is DAG (Directed Acyclic Graph.)
+*/
 int n; // no of vertices
 vector<vector<int> > adj;
 vector<bool> vis;
@@ -31,3 +34,9 @@ void topological_sort(){
 int main(void){
 
 }
+
+/*
+* a directed acyclic graph (DAG) is a graph 
+* that is directed and 
+* without cycles connecting the other edges.
+*/
